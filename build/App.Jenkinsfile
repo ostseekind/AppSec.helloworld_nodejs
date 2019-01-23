@@ -30,6 +30,7 @@ pipeline {
 
 	stage("Dependency Check") {
       steps {
+		sh 'mkdir -m 777 ${PWD}/app/result'
 	    sh 'docker run -v ${PWD}:/src -v ${PWD}/app/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "HTML" --project app --out /result'
       }
 	}
