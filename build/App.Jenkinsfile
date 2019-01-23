@@ -30,9 +30,9 @@ pipeline {
 
 	stage("Dependency Check") {
       steps {
-	  #sudo docker run -v /tmp/workspace/NodeJS/Build_Application/:/src -v /tmp/workspace/NodeJS/Build_Application/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "HTML" --project app --out /result
-        sh 'docker run -v ${PWD}:/src -v ${PWD}/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "HTML" --project app --out /result'
+	    sh 'docker run -v ${PWD}:/src -v ${PWD}/app/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "HTML" --project app --out /result'
       }
+	}
 
     stage("Code Quality") {
       steps {
@@ -45,6 +45,8 @@ pipeline {
           timeout(time: 1, unit: 'HOURS') {
             waitForQualityGate abortPipeline: true
           }
+		  
+		  sh 'rm -rf result'
 
         }
       }
