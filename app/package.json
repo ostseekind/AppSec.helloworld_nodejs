@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Demo App",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "test": "mocha ./test/unit",
+    "itest": "mocha ./test/integration --timeout 30000 --reporter mochawesome --reporter-options reportDir=.results/reports,reportFilename=tests"
+  },
+  "author": "Pascal Lauener",
+  "license": "ISC",
+  "dependencies": {
+    "express": "latest",
+    "pug": "latest"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "mocha": "latest",
+    "mochawesome": "latest",
+    "request": "latest",
+    "selenium-webdriver": "latest"
+  }
+}
