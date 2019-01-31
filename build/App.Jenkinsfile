@@ -35,7 +35,7 @@
           steps {
     	script {
     		try{
-    			auditResult = sh(returnStdout: true, script: 'docker run --rm -v ${PWD}/app:/work juiceshop npm audit').trim()
+    			auditResult = sh(returnStdout: true, script: 'docker run --rm -v ${PWD}/app:/work helloworldnodejs npm audit').trim()
             		echo auditResult
             	}
             	catch(Exception e){
