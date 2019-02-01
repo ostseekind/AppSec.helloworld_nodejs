@@ -1,20 +1,18 @@
-
-
-    #!groovy
+#!groovy
      
-    pipeline {
-      agent {
-        label 'host'
-      }
+pipeline {
+	agent {
+		label 'host'
+    }
       
-      options {
+    options {
         buildDiscarder(logRotator(numToKeepStr: '10', daysToKeepStr: '7'))
         disableConcurrentBuilds()
-      }
+    }
       
-      stages {
+    stages {
      
-        stage("Set Build Parameters") {
+		stage("Set Build Parameters") {
           steps {
             script {
               currentBuild.displayName = "Build_App .${BUILD_NUMBER}";
@@ -33,9 +31,9 @@
             
         stage("NPM audit") {
           steps {
-    	script {
-    		try{
-    			auditResult = sh(returnStdout: true, script: 'docker run --rm -v ${PWD}/app:/work helloworldnodejs npm audit').trim()
+			script {
+				try{
+					auditResult = sh(returnStdout: true, script: 'docker run --rm -v ${PWD}/app:/work helloworldnodejs npm audit').trim()
             		echo auditResult
             	}
             	catch(Exception e){
@@ -46,12 +44,12 @@
           
         }
      
-         stage("Dependency Check") {
+        stage("Dependency Check") {
           steps {
-    	sh 'rm -rf ${PWD}/app/result'
-    	sh 'mkdir -m 777 ${PWD}/app/result'
+			sh 'rm -rf ${PWD}/app/result'
+			sh 'mkdir -m 777 ${PWD}/app/result'
      
-    	sh 'docker run -v ${PWD}:/src -v ${PWD}/app/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "ALL" --project app --out /result --noupdate'
+			sh 'docker run -v ${PWD}:/src -v ${PWD}/app/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "ALL" --project app --out /result --noupdate'
           }
         }
      
@@ -72,9 +70,9 @@
             }
           }
           post {
-    	always{
-    		sh 'rm -rf ${PWD}/app/result'
-    	}
+			always{
+				sh 'rm -rf ${PWD}/app/result'
+			}
           }
         }
               
