@@ -51,7 +51,7 @@
     	sh 'rm -rf ${PWD}/app/result'
     	sh 'mkdir -m 777 ${PWD}/app/result'
      
-    	sh 'docker run -v ${PWD}:/src -v ${PWD}/app/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "ALL" --project app --out /result'
+    	sh 'docker run -v ${PWD}:/src -v ${PWD}/app/result/:/result melaniealwardt/dependency-check:latest --scan /src/app --format "ALL" --project app --out /result --noupdate'
           }
         }
      
